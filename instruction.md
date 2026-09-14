@@ -130,3 +130,8 @@ lerobot-calibrate \
 ```bash
 python docker/real/scripts/so101_check_calibration.py 
 ```
+
+# 3단계 : SO-101 조작
+
+
+# 
