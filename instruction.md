@@ -89,3 +89,38 @@ docker run --name teleop -it --privileged --gpus all -e "ACCEPT_EULA=Y" --rm --n
 lerobot-find-port
 ```
 
+- USB 포트 빼고 포트 정보 기록. 예) /dev/ttyACM2
+
+- 환경 변수 설정
+
+```text
+setenv TELEOP_PORT=/dev/ttyACM # !! make sure to update
+setenv TELEOP_ID=orange_teleop # use this line as-is
+```
+```text
+setenv ROBOT_PORT=/dev/ttyACM # !! make sure to update
+setenv ROBOT_ID=orange_robot # use this as-is
+```
+```bash
+echo "Teleop port is ${TELEOP_PORT} with id ${TELEOP_ID}"
+echo "Robot port is ${ROBOT_PORT} with id ${ROBOT_ID}"
+```
+
+- docker 열어 두기 
+
+### 원격(리더) 암 캘리브레이션
+
+```bash
+lerobot-calibrate \
+    --teleop.type=so101_leader \
+    --teleop.port=$TELEOP_PORT \
+    --teleop.id=$TELEOP_ID
+```
+### 팔로워 암 캘리브레이션
+
+```bash
+lerobot-calibrate \
+    --teleop.type=so101_leader \
+    --teleop.port=$TELEOP_PORT \
+    --teleop.id=$TELEOP_ID
+```
