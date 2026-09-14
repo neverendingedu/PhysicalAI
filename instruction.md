@@ -124,3 +124,9 @@ lerobot-calibrate \
     --teleop.port=$TELEOP_PORT \
     --teleop.id=$TELEOP_ID
 ```
+
+### 캘리브레이션 체크
+
+```bash
+python docker/real/scripts/so101_check_calibration.py 
+```
