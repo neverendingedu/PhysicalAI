@@ -2,16 +2,22 @@
 
 ### 저장소 복제
 
+```bash
 git clone https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop.git
 cd Sim-to-Real-SO-101-Workshop
+```
 
 ### Teleop and Simulation 컨테이너 도커 빌드
 
+```bash
 docker build -t teleop-docker -f docker/sim/Dockerfile .
+```
 
 ### Ada GPUs, For NVIDIA GPUs based on the Ada architecture (e.g. RTX 4090):
 
+```bash
 ./docker/real/build.sh ada
+```
 
 ### 모델 가져오기
 
@@ -23,12 +29,15 @@ mkdir -p models
 
 [https://huggingface.co/](https://huggingface.co/)
 
+```bash
 huggingface-cli login
+```
 
 - Before downloading from Hugging Face, log in with hf auth login to avoid anonymous rate limits.
 
 ### 모델 다운로드 -> 복사 (다운로드 시간 지체)
 
+```bash
 hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left \
   --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
 
@@ -40,6 +49,7 @@ hf download aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02 \
 
 hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
   --local-dir ./models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
+```
 
 # 2단계 : 로봇 조정
 
@@ -47,4 +57,35 @@ hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
 
 - 새 터미널 오픈 (Ctrl+Alt+T)
 - teleop-docker 컨테이너 실행
+```bash
+cd ~/Sim-to-Real-SO-101-Workshop
+xhost +
+docker run --name teleop -it --privileged --gpus all -e "ACCEPT_EULA=Y" --rm --network=host \
+   -e "PRIVACY_CONSENT=Y" \```
+   -e DISPLAY \
+   -v /dev:/dev \
+   -v /run/udev:/run/udev:ro \
+   -v $HOME/.Xauthority:/root/.Xauthority \
+   -v ~/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache:rw \
+   -v ~/docker/isaac-sim/cache/ov:/root/.cache/ov:rw \
+   -v ~/docker/isaac-sim/cache/pip:/root/.cache/pip:rw \
+   -v ~/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache:rw \
+   -v ~/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache:rw \
+   -v ~/docker/isaac-sim/logs:/root/.nvidia-omniverse/logs:rw \
+   -v ~/docker/isaac-sim/data:/root/.local/share/ov/data:rw \
+   -v ~/docker/isaac-sim/documents:/root/Documents:rw \
+   -v ~/.cache/huggingface/lerobot/calibration:/root/.cache/huggingface/lerobot/calibration \
+   -v ./docker/env:/root/env \
+   -v $(pwd)/source:/workspace/Sim-to-Real-SO-101-Workshop/source \
+   -v $(pwd)/outputs:/workspace/Sim-to-Real-SO-101-Workshop/outputs \
+   -v $(pwd)/datasets:/workspace/Sim-to-Real-SO-101-Workshop/datasets \
+   -v $(pwd)/docker/real/scripts:/workspace/Sim-to-Real-SO-101-Workshop/docker/real/scripts \
+   teleop-docker:latest
+```
+
+### 원격 암포트 식별
+
+```bash
+lerobot-find-port
+```
 
