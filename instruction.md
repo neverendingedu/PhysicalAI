@@ -61,7 +61,7 @@ hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
 cd ~/Sim-to-Real-SO-101-Workshop
 xhost +
 docker run --name teleop -it --privileged --gpus all -e "ACCEPT_EULA=Y" --rm --network=host \
-   -e "PRIVACY_CONSENT=Y" \```
+   -e "PRIVACY_CONSENT=Y" \
    -e DISPLAY \
    -v /dev:/dev \
    -v /run/udev:/run/udev:ro \
