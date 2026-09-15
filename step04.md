@@ -81,3 +81,21 @@ lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack-DR
 ```bash
 lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack
 ```
+
+### 데모 데이터 녹화하기 
+
+- Hugging face 서용자명 설정
+
+```bash
+export HF_USER=your-hf-username
+```
+
+- 녹화 세션 시작
+
+```bash
+lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack-DR \
+    --repo_id ${HF_USER}/so101_teleop_vials \
+    --repo_root $(pwd)/datasets/so101_teleop_vials \
+    --task_name "Pick up the vial and place it in the rack"
+```
+
