@@ -7,7 +7,9 @@ cd ~/Sim-to-Real-SO-101-Workshop
 xhost +
 docker run --name teleop -it --privileged --gpus all -e "ACCEPT_EULA=Y" --rm --network=host \
    -e "PRIVACY_CONSENT=Y" \
-   -e DISPLAY \
+   -e DISPLAY=$DISPLAY \
+   -v /tmp/.X11-unix:/tmp/.X11-unix \
+   --shm-size=16gb \
    -v /dev:/dev \
    -v /run/udev:/run/udev:ro \
    -v $HOME/.Xauthority:/root/.Xauthority \
@@ -26,4 +28,29 @@ docker run --name teleop -it --privileged --gpus all -e "ACCEPT_EULA=Y" --rm --n
    -v $(pwd)/datasets:/workspace/Sim-to-Real-SO-101-Workshop/datasets \
    -v $(pwd)/docker/real/scripts:/workspace/Sim-to-Real-SO-101-Workshop/docker/real/scripts \
    teleop-docker:latest
+```
+
+### 환경 변수 최종 설정 (예시)
+
+```text
+setenv TELEOP_PORT=/dev/ttyACM0 # !! make sure to update
+setenv TELEOP_ID=orange_teleop # use this line as-is
+setenv ROBOT_PORT=/dev/ttyACM1 # !! make sure to update
+setenv ROBOT_ID=orange_robot # use this as-is
+setenv CAMERA_GRIPPER=2 # make sure to update to your values
+setenv CAMERA_EXTERNAL=0 # make sure to update to your values
+```
+
+### 시뮬레이션 환경 Isaac Lab
+
+- 도메인 무작위화 활성화
+
+```bash
+lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack-DR
+```
+
+- 도메인 무작위화 비활성화
+
+```bash
+lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack
 ```
