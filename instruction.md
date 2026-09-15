@@ -1,56 +1,3 @@
-# 1단계 : 소프트웨어 셋업
-
-### 저장소 복제
-
-```bash
-git clone https://github.com/isaac-sim/Sim-to-Real-SO-101-Workshop.git
-cd Sim-to-Real-SO-101-Workshop
-```
-
-### Teleop and Simulation 컨테이너 도커 빌드
-
-```bash
-docker build -t teleop-docker -f docker/sim/Dockerfile .
-```
-
-### Ada GPUs, For NVIDIA GPUs based on the Ada architecture (e.g. RTX 4090):
-
-```bash
-./docker/real/build.sh ada
-```
-
-### 모델 가져오기
-
-```bash
-mkdir -p models
-```
-
-### 허킹페이스 가입 및 로그인
-
-[https://huggingface.co/](https://huggingface.co/)
-
-```bash
-huggingface-cli login
-```
-
-- Before downloading from Hugging Face, log in with hf auth login to avoid anonymous rate limits.
-
-### 모델 다운로드 -> 복사 (다운로드 시간 지체)
-
-```bash
-hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left \
-  --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
-
-hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real \
-  --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real
-
-hf download aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02 \
-  --local-dir ./models/aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02
-
-hf download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
-  --local-dir ./models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
-```
-
 # 2단계 : 로봇 조정
 
 ### 도커 실행
@@ -106,6 +53,15 @@ echo "Teleop port is ${TELEOP_PORT} with id ${TELEOP_ID}"
 echo "Robot port is ${ROBOT_PORT} with id ${ROBOT_ID}"
 ```
 
+- 환경 변수 최종 설정 (예시)
+
+```text
+setenv TELEOP_PORT=/dev/ttyACM0 # !! make sure to update
+setenv TELEOP_ID=orange_teleop # use this line as-is
+setenv ROBOT_PORT=/dev/ttyACM1 # !! make sure to update
+setenv ROBOT_ID=orange_robot # use this as-is
+```
+
 - docker 열어 두기 
 
 ### 원격(리더) 암 캘리브레이션
@@ -133,5 +89,58 @@ python docker/real/scripts/so101_check_calibration.py
 
 # 3단계 : SO-101 조작
 
+### 원격 조작
 
-# 
+```bash
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=$ROBOT_PORT \
+    --robot.id=$ROBOT_ID \
+    --teleop.type=so101_leader \
+    --teleop.port=$TELEOP_PORT \
+    --teleop.id=$TELEOP_ID
+```
+
+- 중단 : Ctrl + C
+
+### 카메라 정보 설치 
+
+- v4l2-ctl 도구 설치
+
+```bash
+sudo apt install v4l-utils
+```
+
+- 연결 비디오 장치 목록 확인
+
+```bash
+v4l2-ctl --list-devices
+```
+
+### 카메라 종류 확인
+
+```bash
+sudo apt install ffmpeg -y
+ffplay /dev/video2
+```
+
+- video2/4/6 등 숫자를 바꾸면서 확인
+
+### 카메라 설정
+
+```bash
+lerobot-find-cameras opencv
+```
+
+### 환경 변수 최종 설정 (예시)
+
+```text
+setenv TELEOP_PORT=/dev/ttyACM0 # !! make sure to update
+setenv TELEOP_ID=orange_teleop # use this line as-is
+setenv ROBOT_PORT=/dev/ttyACM1 # !! make sure to update
+setenv ROBOT_ID=orange_robot # use this as-is
+setenv CAMERA_GRIPPER=2 # make sure to update to your values
+setenv CAMERA_EXTERNAL=0 # make sure to update to your values
+```
+
+### 카메라와 함꼐 원격 조작 실행하기 
