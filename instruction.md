@@ -120,9 +120,9 @@ lerobot-calibrate \
 
 ```bash
 lerobot-calibrate \
-    --teleop.type=so101_leader \
-    --teleop.port=$TELEOP_PORT \
-    --teleop.id=$TELEOP_ID
+    --robot.type=so101_follower \
+    --robot.port=$ROBOT_PORT \
+    --robot.id=$ROBOT_ID
 ```
 
 ### 캘리브레이션 체크
