@@ -41,6 +41,33 @@ setenv CAMERA_GRIPPER=2 # make sure to update to your values
 setenv CAMERA_EXTERNAL=0 # make sure to update to your values
 ```
 
+### usd 파일 얻기
+
+- Git LFS 설치 및 활성화
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git-lfs
+git lfs install
+```
+
+- 작업 폴더로 이동 후 실제 3D 모델 파일 당겨오기
+
+```bash
+cd ~/Sim-to-Real-SO-101-Workshop
+git lfs pull
+```
+
+(명령어를 입력하면 수 MB ~ 수십 MB 크기의 .usd 파일들이 주르륵 다운로드됩니다.)
+
+- 파일이 정상적으로 받아졌는지 크기 확인
+
+```bash
+ls -lh source/sim_to_real_so101/assets/usd/SO-ARM101-USD.usd
+```
+
+출력 결과에 파일 용량이 메가바이트(MB) 단위로 나오면 완벽하게 성공입니다. (만약 130바이트 등 아주 작게 나온다면 아직 LFS 다운로드가 안 된 것입니다.)
+
 ### 시뮬레이션 환경 Isaac Lab
 
 - 도메인 무작위화 활성화
