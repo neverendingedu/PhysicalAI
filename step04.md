@@ -99,3 +99,18 @@ lerobot_agent --task Lerobot-So101-Teleop-Vials-To-Rack-DR \
     --task_name "Pick up the vial and place it in the rack"
 ```
 
+- 녹화 시작/중지 : S
+- 녹화 취소 : C
+- 녹화 환경 초기화 : R
+- 프로그램 종료 : Ctrl + C
+
+### 수집된 데이터 검토
+
+```bash
+lerobot-dataset-viz \
+    --repo-id ${HF_USER}/so101_teleop_vials \
+    --root $(pwd)/datasets/so101_teleop_vials \
+    --episode-index 0
+```
+
+- episode-index 번호를 변경해서 여러 에피소드 검토 
