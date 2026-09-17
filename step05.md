@@ -42,6 +42,13 @@ docker run -it --rm --name real-robot --network host --privileged --gpus all \
     /bin/bash
 ```
 
+- 평가 모델 다운로드
+
+```bash
+huggingface-cli download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left \
+    --local-dir /workspace/models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
+```
+
 - 평가 모델 설정
 
 ```bash
