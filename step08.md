@@ -95,6 +95,13 @@ python Isaac-GR00T/gr00t/eval/real_robot/SO100/so101_eval.py \
 
 ### 터미널 1(real-robot 컨테이너) - GR00T 정책 서버 시작
 
+- 모델 다운로드
+
+```bash
+huggingface-cli download aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02 \
+    --local-dir /workspace/models/aravindhs-NV/sreetz-so101_teleop_vials_rack_left_augment_02
+```
+
 - 새 터미널 시작, 변수 설정
 
 ```bash
