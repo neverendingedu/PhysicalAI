@@ -22,7 +22,6 @@ docker run -it --rm --name real-robot --network host --privileged --gpus all \
     /bin/bash
 ```
 
-
 - cuda 문제가 있는 경우
 
 ```bash
@@ -50,8 +49,8 @@ ldconfig
 - 모델 다운로드
 
 ```bash
-huggingface-cli download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real \
-    --local-dir /workspace/models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real
+huggingface-cli download aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70 \
+    --local-dir /workspace/models/aravindhs-NV/so100-orig-groot-vials-rack-left-cosmos-70
 ```
 
 - 평가 모델 설정
