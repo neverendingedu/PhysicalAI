@@ -40,7 +40,8 @@ docker run -it --rm --name real-robot --network host --privileged --gpus all \
     -v $(pwd)/docker/real/scripts:/Isaac-GR00T/gr00t/eval/real_robot/SO100 \
     real-robot \
     /bin/bash
-
+```
+```bash
 rm -rf /usr/local/cuda/compat /usr/local/cuda-*/compat
 ldconfig
 ```
