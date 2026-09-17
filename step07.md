@@ -22,6 +22,29 @@ docker run -it --rm --name real-robot --network host --privileged --gpus all \
     /bin/bash
 ```
 
+- cuda 문제가 있는 경우
+
+```bash
+cd ~/Sim-to-Real-SO-101-Workshop
+xhost +
+docker run -it --rm --name real-robot --network host --privileged --gpus all \
+    -e DISPLAY=$DISPLAY \
+    -e NVIDIA_DISABLE_REQUIRE=1 \
+    -v /dev:/dev \
+    -v /run/udev:/run/udev:ro \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v ~/.cache/huggingface/lerobot/calibration:/root/.cache/huggingface/lerobot/calibration \
+    -v ./docker/env:/root/env \
+    -v ~/models:/workspace/models \
+    -v $(pwd)/docker/real/scripts:/Isaac-GR00T/gr00t/eval/real_robot/SO100 \
+    real-robot \
+    /bin/bash
+
+rm -rf /usr/local/cuda/compat /usr/local/cuda-*/compat
+ldconfig
+```
+
 - 평가 모델 설정
 
 ```bash
