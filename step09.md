@@ -9,6 +9,12 @@ git clone https://github.com/isaac-sim2real/sage.git
 cd sage
 ```
 
+- Docker 빌드
+
+```bash
+docker build -t sage:latest .
+```
+
 - SAGE 컨테이너 시작
 
 ```bash
