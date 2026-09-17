@@ -5,7 +5,7 @@
 - SAGE 저장소 클론
 
 ```bash
-git clone git@github.com:isaac-sim2real/sage.git
+git clone https://github.com/isaac-sim2real/sage.git
 cd sage
 ```
 
