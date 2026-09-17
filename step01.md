@@ -37,6 +37,17 @@ huggingface-cli login
 
 ### 모델 다운로드 -> 복사 (다운로드 시간 지체)
 
+1) 링크 다운로드 및 해제
+
+[공류 링크](https://drive.google.com/file/d/1t4b3AmAVEabQY-3_pJXHyHDJ15IzYHVt/view?usp=sharing)
+
+```bash
+cd ~/Sim-to-Real-SO-101-Workshop
+tar xzvf models.tar.gz
+```
+
+2) 직접 다운로드 
+
 ```bash
 hf download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left \
   --local-dir ./models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left
