@@ -46,6 +46,13 @@ rm -rf /usr/local/cuda/compat /usr/local/cuda-*/compat
 ldconfig
 ```
 
+- 모델 다운로드
+
+```bash
+huggingface-cli download aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real \
+    --local-dir /workspace/models/aravindhs-NV/grootn16-finetune_sreetz-so101_teleop_vials_rack_left_sim_and_real
+```
+
 - 평가 모델 설정
 
 ```bash
